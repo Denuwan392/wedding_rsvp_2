@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emma & James | Wedding Celebration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ivory: '#F8F4F0',
+                        blush: '#E8C9C1',
+                        sage: '#A8C3B1',
+                        gold: '#D4AF37',
+                        'deep-green': '#2C3E50'
+                    },
+                    fontFamily: {
+                        heading: ['"Playfair Display"', 'serif'],
+                        body: ['Lora', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        pulse: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.7 }
+                        }
+                    },
+                    animation: {
+                        float: 'float 3s ease-in-out infinite',
+                        pulse: 'pulse 2s ease-in-out infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background-color: #F8F4F0;
+            color: #2C3E50;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(248, 244, 240, 0.85), rgba(248, 244, 240, 0.95)), url('https://placehold.co/1920x1080/F8F4F0/E8C9C1?text=Wedding+Flowers') no-repeat center center/cover;
+        }
+        .rsvp-form {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+        }
+        .gallery-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .floral-divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #E8C9C1, #A8C3B1, #E8C9C1, transparent);
+            margin: 2rem auto;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 10px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #E8C9C1;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .countdown-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 244, 240, 0.95) 100%);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(232, 201, 193, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .countdown-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #E8C9C1, #A8C3B1, #D4AF37);
+        }
+        .countdown-item {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 10px;
+            min-width: 120px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+        .countdown-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(to right, #2C3E50, #5D6D7E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .countdown-label {
+            font-size: 1.1rem;
+            color: #2C3E50;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+        .floral-accent {
+            position: absolute;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        .floral-accent-1 {
+            top: 20px;
+            left: 20px;
+            font-size: 3rem;
+            animation: float 4s ease-in-out infinite;
+        }
+        .floral-accent-2 {
+            bottom: 20px;
+            right: 20px;
+            font-size: 2.5rem;
+            animation: float 5s ease-in-out infinite 0.5s;
+        }
+        .transition-container {
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .wedding-message {
+            background: linear-gradient(135deg, rgba(232, 201, 193, 0.15) 0%, rgba(168, 195, 177, 0.15) 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .wedding-message::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #D4AF37, #A8C3B1, #E8C9C1);
+        }
+        .wedding-quote {
+            font-size: 2.5rem;
+            font-style: italic;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .wedding-quote::before, .wedding-quote::after {
+            content: """;
+            font-size: 4rem;
+            color: #E8C9C1;
+            position: absolute;
+            opacity: 0.3;
+        }
+        .wedding-quote::before {
+            top: -20px;
+            left: -20px;
+        }
+        .wedding-quote::after {
+            bottom: -40px;
+            right: -20px;
+        }
+        .wedding-text {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #E8C9C1;
+            border-radius: 50%;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .date-display {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #2C3E50;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .date-display::before, .date-display::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #E8C9C1, transparent);
+        }
+    </style>
+</head>
+<body class="font-body">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-ivory bg-opacity-90 backdrop-blur-sm z-50 py-4 px-6 shadow-sm">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="text-deep-green font-heading text-xl">Emma & James</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#details" class="text-deep-green hover:text-blush transition-colors">Details</a>
+                <a href="#countdown" class="text-deep-green hover:text-blush transition-colors">Countdown</a>
+                <a href="#rsvp" class="text-deep-green hover:text-blush transition-colors">RSVP</a>
+                <a href="#gallery" class="text-deep-green hover:text-blush transition-colors">Gallery</a>
+            </div>
+            <button class="md:hidden text-deep-green">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero-bg min-h-screen flex items-center">
+        <div class="max-w-4xl mx-auto text-center px-4 py-24 fade-in">
+            <div class="mb-8">
+                <div class="inline-block bg-white bg-opacity-70 px-6 py-3 rounded-full mb-4">
+                    <span class="text-deep-green font-heading text-2xl">We're Getting Married!</span>
+                </div>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-heading font-bold text-deep-green mb-6">Emma & James</h1>
+            <p class="text-xl md:text-2xl text-deep-green mb-12">Sunday, October 20, 2025</p>
+            
+            <div class="flex justify-center space-x-4 mb-12">
+                <div class="w-16 h-1 bg-blush rounded-full"></div>
+                <div class="w-16 h-1 bg-sage rounded-full"></div>
+                <div class="w-16 h-1 bg-blush rounded-full"></div>
+            </div>
+            
+            <a href="#rsvp" class="inline-block bg-blush hover:bg-sage text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                Join Our Celebration
+            </a>
+        </div>
+    </header>
+
+    <!-- Wedding Details -->
+    <section id="details" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-heading font-bold text-center text-deep-green mb-16 fade-in">Wedding Details</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 fade-in">
+                <div>
+                    <h3 class="text-2xl font-heading font-semibold text-deep-green mb-6">Ceremony & Reception</h3>
+                    
+                    <div class="relative pl-8 mb-8">
+                        <div class="timeline-item relative mb-6 pb-6">
+                            <h4 class="text-xl font-semibold text-deep-green">3:00 PM - Ceremony</h4>
+                            <p class="mt-2">Garden of Serenity</p>
+                            <p class="text-blush">123 Blossom Lane, Charleston, SC</p>
+                        </div>
+                        
+                        <div class="timeline-item relative mb-6 pb-6">
+                            <h4 class="text-xl font-semibold text-deep-green">4:30 PM - Cocktail Hour</h4>
+                            <p class="mt-2">The Veranda</p>
+                            <p class="text-blush">Adjacent to the ceremony garden</p>
+                        </div>
+                        
+                        <div class="timeline-item relative mb-6 pb-6">
+                            <h4 class="text-xl font-semibold text-deep-green">6:00 PM - Dinner & Reception</h4>
+                            <p class="mt-2">Grand Ballroom</p>
+                            <p class="text-blush">Charleston Historic Inn</p>
+                        </div>
+                        
+                        <div class="timeline-item relative">
+                            <h4 class="text-xl font-semibold text-deep-green">10:00 PM - Farewell</h4>
+                            <p class="mt-2">Send-off with sparklers!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-ivory p-6 rounded-xl border border-blush">
+                        <h4 class="font-semibold text-deep-green mb-3">Dress Code</h4>
+                        <p>Semi-formal garden attire. Ladies, feel free to wear your favorite dress! Gentlemen, jackets recommended but ties optional.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="rounded-xl overflow-hidden shadow-lg mb-8">
+                        <div class="h-64 bg-sage flex items-center justify-center">
+                            <div class="text-center p-4">
+                                <div class="text-white font-bold text-xl mb-2">Charleston Historic Inn</div>
+                                <p class="text-ivory">123 Blossom Lane, Charleston, SC 29401</p>
+                                <a href="https://maps.google.com" target="_blank" class="mt-4 inline-block bg-blush text-white py-2 px-4 rounded-full text-sm hover:bg-sage transition-colors">
+                                    Get Directions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-ivory p-6 rounded-xl border border-blush">
+                        <h4 class="font-semibold text-deep-green mb-3">Accommodations</h4>
+                        <p>We've reserved a block of rooms at the Charleston Historic Inn at a special rate. Please book by September 20th using our group code: EMMAJAMES2025.</p>
+                        <a href="#" class="text-blush font-medium mt-2 inline-block hover:underline">View Accommodation Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown" class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-heading font-bold text-deep-green mb-8 fade-in">Countdown to Our Big Day</h2>
+            
+            <div class="date-display fade-in">
+                Sunday, October 20, 2025
+            </div>
+            
+            <div id="countdown-container" class="countdown-card relative overflow-hidden mb-12 fade-in transition-container">
+                <div class="floral-accent floral-accent-1">✿</div>
+                <div class="floral-accent floral-accent-2">❀</div>
+                
+                <div class="relative z-10 p-8">
+                    <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+                        <div class="countdown-item">
+                            <div id="days" class="countdown-number">00</div>
+                            <div class="countdown-label">Days</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div id="hours" class="countdown-number">00</div>
+                            <div class="countdown-label">Hours</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div id="minutes" class="countdown-number">00</div>
+                            <div class="countdown-label">Minutes</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div id="seconds" class="countdown-number">00</div>
+                            <div class="countdown-label">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="wedding-message" class="hidden wedding-message fade-in transition-container">
+                <div class="wedding-quote">We said 'I do!'</div>
+                <p class="wedding-text">Thank you for being part of our forever. We're so grateful you shared our special day with us.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-heading font-bold text-center text-deep-green mb-16 fade-in">RSVP</h2>
+            
+            <div class="rsvp-form rounded-2xl p-8 shadow-lg max-w-2xl mx-auto fade-in">
+                <form id="rsvp-form">
+                    <div class="mb-6">
+                        <label for="name" class="block text-deep-green font-medium mb-2">Your Name(s)</label>
+                        <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-blush focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-deep-green font-medium mb-2">Will you be attending?</label>
+                        <div class="flex space-x-6">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="attending" value="yes" class="form-radio text-blush" required>
+                                <span class="ml-2">Yes, I'll be there!</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="attending" value="no" class="form-radio text-blush">
+                                <span class="ml-2">Unfortunately, I can't attend</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="guest-count" class="mb-6 hidden">
+                        <label for="guests" class="block text-deep-green font-medium mb-2">Number of Guests</label>
+                        <select id="guests" name="guests" class="w-full px-4 py-3 rounded-lg border border-blush focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    
+                    <div id="meal-preference" class="mb-6 hidden">
+                        <label class="block text-deep-green font-medium mb-2">Meal Preference (per guest)</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <label class="inline-flex items-center p-3 border border-blush rounded-lg cursor-pointer hover:bg-blush hover:bg-opacity-10">
+                                <input type="radio" name="meal" value="standard" class="form-radio text-blush">
+                                <span class="ml-2">Standard</span>
+                            </label>
+                            <label class="inline-flex items-center p-3 border border-blush rounded-lg cursor-pointer hover:bg-blush hover:bg-opacity-10">
+                                <input type="radio" name="meal" value="vegetarian" class="form-radio text-blush">
+                                <span class="ml-2">Vegetarian</span>
+                            </label>
+                            <label class="inline-flex items-center p-3 border border-blush rounded-lg cursor-pointer hover:bg-blush hover:bg-opacity-10">
+                                <input type="radio" name="meal" value="gluten-free" class="form-radio text-blush">
+                                <span class="ml-2">Gluten-Free</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="message" class="block text-deep-green font-medium mb-2">Special Notes or Messages</label>
+                        <textarea id="message" name="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-blush focus:outline-none focus:ring-2 focus:ring-sage focus:border-transparent"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blush hover:bg-sage text-white font-semibold py-3 px-6 rounded-full transition-colors duration-300">
+                        Submit RSVP
+                    </button>
+                </form>
+                
+                <div id="confirmation-message" class="hidden mt-6 p-4 bg-blush bg-opacity-20 rounded-lg text-deep-green">
+                    <p class="font-medium">Thank you! We can't wait to celebrate with you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 px-4 bg-sage bg-opacity-10">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-heading font-bold text-center text-deep-green mb-16 fade-in">Our Wedding Gallery</h2>
+            
+            <div id="gallery-content">
+                <div class="text-center mb-12 fade-in">
+                    <div class="inline-block bg-white px-6 py-3 rounded-full mb-4">
+                        <span class="text-deep-green font-heading text-xl">Coming Soon</span>
+                    </div>
+                    <p class="text-lg">Photos from our special day will be shared here after October 20th</p>
+                </div>
+                
+                <div class="hidden grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 fade-in" id="photo-grid">
+                    <!-- Photos will be added here after wedding -->
+                    <div class="gallery-item rounded-xl overflow-hidden aspect-square">
+                        <img src="https://placehold.co/600x600/F8F4F0/E8C9C1?text=Engagement" alt="Engagement Photo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden aspect-square">
+                        <img src="https://placehold.co/600x600/F8F4F0/A8C3B1?text=Ceremony" alt="Ceremony Photo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden aspect-square">
+                        <img src="https://placehold.co/600x600/F8F4F0/D4AF37?text=Reception" alt="Reception Photo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="gallery-item rounded-xl overflow-hidden aspect-square">
+                        <img src="https://placehold.co/600x600/F8F4F0/E8C9C1?text=Portraits" alt="Portraits Photo" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8 fade-in">
+                    <p class="text-sm text-deep-green italic">Photos shared with love—please don't repost without permission</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-deep-green text-ivory">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="text-2xl font-heading mb-4">Emma & James</div>
+            <p class="mb-6">October 20, 2025 • Charleston, South Carolina</p>
+            <div class="flex justify-center space-x-4 mb-6">
+                <a href="#" class="hover:text-blush transition-colors">Instagram</a>
+                <a href="#" class="hover:text-blush transition-colors">Photos</a>
+                <a href="#" class="hover:text-blush transition-colors">Registry</a>
+            </div>
+            <p class="text-ivory text-opacity-70 text-sm">© 2025 Emma & James Wedding. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Fade-in animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Countdown Timer with enhanced animations
+        const weddingDate = new Date('October 20, 2024 15:00:00').getTime();
+        const countdownContainer = document.getElementById('countdown-container');
+        const weddingMessage = document.getElementById('wedding-message');
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        let countdownInterval;
+        
+        function createConfetti() {
+            const container = document.body;
+            const confettiCount = 150;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = ['#E8C9C1', '#A8C3B1', '#D4AF37', '#F8F4F0'][Math.floor(Math.random() * 4)];
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(confetti);
+                
+                // Remove confetti after animation completes
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            if (distance < 0) {
+                // Wedding day has passed
+                clearInterval(countdownInterval);
+                countdownContainer.classList.add('hidden');
+                weddingMessage.classList.remove('hidden');
+                weddingMessage.classList.add('appear');
+                
+                // Create confetti effect
+                createConfetti();
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            daysEl.textContent = days.toString().padStart(2, '0');
+            hoursEl.textContent = hours.toString().padStart(2, '0');
+            minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
+            
+            // Add subtle animation to numbers
+            [daysEl, hoursEl, minutesEl, secondsEl].forEach(el => {
+                el.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    el.style.transform = 'scale(1)';
+                }, 200);
+            });
+        }
+        
+        // Initialize countdown
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
+        
+        // RSVP Form Handling
+        const rsvpForm = document.getElementById('rsvp-form');
+        const guestCount = document.getElementById('guest-count');
+        const mealPreference = document.getElementById('meal-preference');
+        const confirmationMessage = document.getElementById('confirmation-message');
+        
+        rsvpForm.addEventListener('change', (e) => {
+            if (e.target.name === 'attending') {
+                if (e.target.value === 'yes') {
+                    guestCount.classList.remove('hidden');
+                    mealPreference.classList.remove('hidden');
+                } else {
+                    guestCount.classList.add('hidden');
+                    mealPreference.classList.add('hidden');
+                }
+            }
+        });
+        
+        rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real implementation, this would send data to Google Sheets API
+            // For this demo, we'll just show the confirmation message
+            confirmationMessage.classList.remove('hidden');
+            rsvpForm.reset();
+            guestCount.classList.add('hidden');
+            mealPreference.classList.add('hidden');
+            
+            // Scroll to confirmation message
+            confirmationMessage.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Show gallery after wedding date
+        const galleryContent = document.getElementById('gallery-content');
+        const photoGrid = document.getElementById('photo-grid');
+        
+        if (new Date() > new Date('October 20, 2024')) {
+            galleryContent.querySelector('.text-center').classList.add('hidden');
+            photoGrid.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
